@@ -21,6 +21,11 @@ class Hotels extends Model
         'user_id'
     ];
 
+    const ALL_PLATFORMS = "All";
+    const BOOKING_DOT_COM = "booking";
+    const TRIPADVISOR = "tripadvisor";
+    const GOOGLE = "google-maps";
+
     public function user(): BelongsTo {
         return $this->belongsTo(User::class);
     }
