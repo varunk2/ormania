@@ -8,40 +8,50 @@
         </div>
 
         <script type="module">
+            const currentHotel = @json($result['hotel']);
+            const marketComparisonData = @json($result['market_comparison']);
+            const marketLabels = marketComparisonData.map(m => m.hotel)
+            const marketValues = marketComparisonData.map(m => m.rating)
+            const marketColors = marketLabels.map(l => l === currentHotel ? '#FF4B4B' : '#30363D')
+
             const comparativeStandingCtx = document.getElementById('comparative-standing-chart').getContext('2d')
 
             new Chart(comparativeStandingCtx, {
-            type: 'bar',
-            data: {
-                labels: ["jüSTa Sarang Rameswaram", "Gulf Hotel Colaba", "Hotel Aalayam Rameshwaram", "Daiwik Hotels Rameswaram", "Hotel Star Palace"],
-                datasets: [
-                    {
-                        data: [
-                            3.6003683241252302,
-                            3.6478930307941653,
-                            3.956043956043956,
-                            4.266666666666667,
-                            4.560082304526749
-                        ],
-                        backgroundColor: [
-                            "#30363D",
-                            "#30363D",
-                            "#30363D",
-                            "#30363D",
-                            "#FF4B4B"
-                        ],
-                        borderRadius: 4
+                type: 'bar',
+                data: {
+                    labels: marketLabels,
+                    datasets: [
+                        {
+                            data: marketValues,
+                            backgroundColor: marketColors,
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        datalabels: {
+                            color: '#F0F6FC',
+                            anchor: 'end',
+                            align: 'start',
+                            formatter: v => v.toFixed(2)
+                        }
+                    },
+                    scales: {
+                        x: {
+                            max: 5,
+                            grid: { color: '#30363D' }
+                        },
+                        y: {
+                            grid: { display: false }
+                        }
                     }
-                ]
-            },
-            options: {
-                indexAxis: 'y',
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false }, datalabels: { color: '#F0F6FC', anchor: 'end', align: 'start', formatter: v => v.toFixed(2) } },
-                scales: { x: { max: 5, grid: { color: '#30363D' } }, y: { grid: { display: false } } }
-            }
-        })
+                }
+            })
         </script>
     </div>
 </div>

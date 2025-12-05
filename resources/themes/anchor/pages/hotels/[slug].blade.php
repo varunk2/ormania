@@ -156,7 +156,7 @@ new class extends Component {
                         Market Intelligence
                     </h2>
                     <div class="flex items-center justify-between gap-6">
-                        <x-hotels.area-trends />
+                        <x-hotels.area-trends :result="$result" />
                         <x-hotels.comparative-standing-chart :result="$result" />
                     </div>
                 </section>
