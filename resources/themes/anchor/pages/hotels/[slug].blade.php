@@ -69,11 +69,31 @@ new class extends Component {
     @volt('hotels.show')
         <div class='py-2 lg:mt-2'>
             <div class='w-full'>
-                <x-elements.back-button
-                    class="max-w-full mx-auto mb-3"
-                    text="Back to Hotels"
-                    :href="route('hotels')"
-                />
+                <div class="flex items-center justify-between">
+                    <x-elements.back-button
+                        class="w-1/2 max-w-full mx-auto mb-3"
+                        text="Back to Hotels"
+                        :href="route('hotels')"
+                    />
+
+                    <div class="w-1/2 flex items justify-between gap-4">
+                        {{-- Platform Dropdown --}}
+                        <x-hotels.platforms-dropdown />
+                        {{-- Target Rating --}}
+                        <x-hotels.integer-input
+                            name="target_ratings"
+                            title="Target Ratings"
+                            value="4.5"
+                        />
+                        {{-- Days to achieve --}}
+                        <x-hotels.integer-input
+                            name="days_to_achieve"
+                            title="Days to achieve"
+                            value="45"
+                        />
+                    </div>
+
+                </div>
                 <div class="flex items-center justify-between mb-6">
                     <div class='max-w-4xl w-1/2 text-left'>
                         <h2 class='mt-2 text-2xl font-bold tracking-tight text-foreground text-gray-800 sm:text-4xl dark:text-gray-200'>
