@@ -11,8 +11,8 @@
         inputmode="numeric"
         pattern="\d+"
         value="{{ $value ?? 0 }}"
-        min="0"
-        step="1"
+        min="1"
+        step="{{ $step ?? 1 }}"
         aria-label="Quantity (integer)"
         placeholder="0"
         class="block w-full rounded-md border px-3 py-2 text-sm
