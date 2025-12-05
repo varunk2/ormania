@@ -72,4 +72,8 @@ class User extends WaveUser
     public function projects(): HasMany {
         return $this->hasMany(Project::class);
     }
+
+    public function hotels(): HasMany {
+        return $this->hasMany(Hotels::class);
+    }
 }
