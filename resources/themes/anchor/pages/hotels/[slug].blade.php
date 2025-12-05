@@ -27,7 +27,7 @@ new class extends Component {
 
         if ($current < $this->targetRating) {
             $currentSum = $current * $N;
-            $needed = ceil((($this->targetRatingtarget * $N) - $currentSum) / (5 - $this->targetRating));
+            $needed = ceil((($this->targetRating * $N) - $currentSum) / (5 - $this->targetRating));
             $perDay = ceil($needed / $this->daysGoal);
             $this->reviewsNeeded = $needed > 0 ? $needed : 0;
             $this->perDayNeeded = $perDay . " -> 5 ⭐ reviews per day to reach a rating of " . $this->targetRating . " in the next " . $this->daysGoal . " days";
@@ -111,7 +111,7 @@ new class extends Component {
                         </p>
                         <div class="mt-2">
                             <p class="text-3xl font-semibold !text-gray-800 dark:!text-gray-200">#{{ $result['rank'] }}</p>
-                            <p class="text-xs !text-green-600 dark:!text-green-400">out of {{ $result['total_hotels'] }}</p>
+                            <p class="text-md !text-green-600 dark:!text-green-400">out of {{ $result['total_hotels'] }}</p>
                         </div>
                     </div>
 
@@ -130,8 +130,8 @@ new class extends Component {
                         </p>
                         <p class="text-2xl font-semibold !text-gray-800 dark:!text-gray-200 mt-2">
                             <span>{{ $reviewsNeeded }}</span>
-                            <span class="text-green-600 dark:text-green-400">{{ $perDayNeeded }}</span>
                         </p>
+                        <p class="text-md !text-green-600 dark:!text-green-400">{{ $perDayNeeded }}</p>
                     </div>
                 </div>
 

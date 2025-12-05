@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('city');
             $table->string('country');
             $table->string('price_per_night');
-            $table->unsignedBigInteger('user_id');
+            $table->tinyInteger('status')->default(1)->comment("0 -> Inactive, 1 -> active");
+            $table->unsignedBigInteger('user_id')->nullable();
 
             $table->foreign('user_id')
                     ->references('id')
