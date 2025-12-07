@@ -18,18 +18,18 @@ class HotelUserSeeder extends Seeder
         DB::table('hotel_user')->insert([
             0 => [
                 "id" => 1,
-                "user_id" => 2,
+                "user_id" => 3,
                 "hotel_id" => 2,
                 "created_at" => now(),
                 "updated_at" => now()
             ],
-            // 1 => [
-            //     "id" => 2,
-            //     "user_id" => '3',
-            //     "hotel_id" => '2',
-            //     "created_at" => now(),
-            //     "updated_at" => now()
-            // ]
+            1 => [
+                "id" => 2,
+                "user_id" => 4,
+                "hotel_id" => 2,
+                "created_at" => now(),
+                "updated_at" => now()
+            ]
         ]);
     }
 }
