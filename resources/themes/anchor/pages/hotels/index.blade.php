@@ -9,41 +9,13 @@ new class extends Component {
     public $hotels;
 
     public function mount() {
-        $this->hotels = auth()->user()->hotels()->get();
-        // [
-        //     [
-        //         "id" => 1,
-        //         "name" => 'Daiwik Hotels',
-        //         "slug" => 'daiwik_hotels',
-        //         "location" => 'Rameswaram, India',
-        //         "image" => 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2a/92/f1/7d/caption.jpg?w=1000&h=-1&s=1',
-        //         "pricePerNight" => '₹8,500 / night',
-        //     ],
-        //     [
-        //         "id" => 2,
-        //         "name" => 'Hotel Star Palace',
-        //         "slug" => 'hotel_star_palace',
-        //         "location" => 'Rameswaram, India',
-        //         "image" => 'https://www.starpalacehotels.com/wp-content/uploads/2022/12/single-gallery-image-1.jpg',
-        //         "pricePerNight" => '₹6,200 / night',
-        //     ],
-        //     [
-        //         "id" => 3,
-        //         "name" => 'Hotel Aalayam Rameshwaram',
-        //         "slug" => 'hotel_aalayam_rameshwaram',
-        //         "location" => 'Rameswaram, India',
-        //         "image" => 'https://www.rameshwaramhotels.com/data/Pics/OriginalPhoto/14691/1469151/1469151749/hotel-aalayam-rameshwaram-rameshwaram-pic-2.JPEG',
-        //         "pricePerNight" => '₹4,500 / night',
-        //     ],
-        //     [
-        //         "id" => 4,
-        //         "name" => 'jüSTa Sarang, Rameswaram',
-        //         "slug" => 'justa_sarang_rameswaram',
-        //         "location" => 'Rameswaram, India',
-        //         "image" => 'https://www.justahotels.com/wp-content/uploads/2022/12/Luxe-Cliffend-1240x562-1.png',
-        //         "pricePerNight" => '₹4,500 / night',
-        //     ],
-        // ];
+        if (auth()->user()->hasRole('admin')) {
+            $this->hotels = Hotels::all();
+        } else {
+            $this->hotels = Hotels::join('hotel_user', 'hotels.id', '=', 'hotel_user.hotel_id')
+                                    ->where('hotel_user.user_id', auth()->user()->id)
+                                    ->get();
+        }
     }
 }
 
