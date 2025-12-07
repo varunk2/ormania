@@ -48,27 +48,16 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: {
-                            display: false
-                        },
+                        legend: { display: false },
                         datalabels: {
                             anchor: "end",
                             align: "end",
-                            color: "#F0F6FC"
+                            formatter: v => v.toFixed(1) + "%"
                         }
                     },
                     scales: {
-                        x: {
-                            grid: {
-                                display: false
-                            }
-                        },
-                        y: {
-                            max: 50,
-                            grid: {
-                                color: "#30363D"
-                            }
-                        }
+                        x: { grid: { display: false } },
+                        y: { max: 50, grid: { color: '#30363D' } }
                     }
                 }
             })

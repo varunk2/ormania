@@ -54,7 +54,6 @@
                         datalabels: {
                             anchor: 'end',
                             align: 'end',
-                            color: '#F0F6FC',
                             formatter: v => v.toFixed(1) + "%"
                         }
                     },
