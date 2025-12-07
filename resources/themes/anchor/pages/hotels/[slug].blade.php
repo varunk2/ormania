@@ -87,10 +87,10 @@ new class extends Component {
                         </h2>
                     </div>
                     <div class="w-1/2 pt-6 text-right">
-                        <x-button class="dark:bg-gray-600 dark:text-gray-100" type="submit">
+                        {{-- <x-button class="dark:bg-gray-600 dark:text-gray-100" type="submit">
                             <i class="ri-download-2-line ri-xl mb-1"></i>
                             <span class="text-xl">Reports</span>
-                        </x-button>
+                        </x-button> --}}
                     </div>
                 </div>
             </div>
