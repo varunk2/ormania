@@ -20,6 +20,13 @@ new class extends Component {
         $this->calculateGoals();
     }
 
+    public function updated($property, $value) {
+        if (!$value) return;
+        if ($property === "targetRating" || $property === "daysGoal") {
+            $this->calculateGoals();
+        }
+    }
+
     public function calculateGoals() {
         if (!$this->result) return;
         $current = $this->result['average_rating'];
@@ -58,7 +65,7 @@ new class extends Component {
 
                         {{-- Target Rating --}}
                         <x-hotels.integer-input
-                            name="target_ratings"
+                            name="targetRating"
                             title="Target Ratings"
                             value="4.5"
                             step="0.1"
@@ -66,7 +73,7 @@ new class extends Component {
 
                         {{-- Days to achieve --}}
                         <x-hotels.integer-input
-                            name="days_to_achieve"
+                            name="daysGoal"
                             title="Days to achieve"
                             value="45"
                             step="1"
