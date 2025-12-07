@@ -10,6 +10,7 @@
         </div>
 
         <script type="module">
+
             const reviewDistributionCtx = document.getElementById('review-distribution-chart').getContext('2d')
 
             new Chart(reviewDistributionCtx, {
@@ -28,7 +29,13 @@
                     maintainAspectRatio: false,
                     cutout: '60%',
                     plugins: {
-                        legend: { position: 'right', labels: { color: '#F0F6FC', usePointStyle: true, padding: 20 } },
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 20
+                            }
+                        },
                         datalabels: {
                             color: 'white',
                             font: { weight: 'bold' },

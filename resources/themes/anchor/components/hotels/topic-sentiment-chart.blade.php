@@ -56,7 +56,9 @@
                         y: { stacked: true, max: 100, grid: { color: '#30363D' } }
                     },
                     plugins: {
-                        legend: { labels: { color: '#F0F6FC', usePointStyle: true } },
+                        legend: {
+                            labels: { usePointStyle: true }
+                        },
                         datalabels: {
                             color: 'white',
                             font: { size: 10 },
