@@ -21,9 +21,13 @@
             const negPct = negData.map((v, i) => totalData[i] ? (v / totalData[i] * 100) : 0)
             const neuPct = neuData.map((v, i) => totalData[i] ? (v / totalData[i] * 100) : 0)
 
+            let topicSentimentChart;
+
             const topicSentimentCtx = document.getElementById('topic-sentiment-chart').getContext('2d')
 
-            new Chart(topicSentimentCtx, {
+            if (topicSentimentChart) topicSentimentChart.destroy()
+
+            topicSentimentChart = new Chart(topicSentimentCtx, {
                 type: 'bar',
                 data: {
                     labels: topics,

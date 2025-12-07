@@ -29,9 +29,13 @@
             const globalMax = Math.max(...posPercents, ...negPercents, 0)
             const dynamicMax = Math.ceil(globalMax / 10) * 10
 
+            let disapprovalRatingChart;
+
             const disapprovalRatingCtx = document.getElementById('disapproval-rating-chart').getContext('2d')
 
-            new Chart(disapprovalRatingCtx, {
+            if (disapprovalRatingChart) disapprovalRatingChart.destroy()
+
+            disapprovalRatingChart = new Chart(disapprovalRatingCtx, {
                 type: "bar",
                 data: {
                     labels: sortedTopics,

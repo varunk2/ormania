@@ -31,9 +31,13 @@
             const globalMax = Math.max(...posPercents, ...negPercents, 0)
             const dynamicMax = Math.ceil(globalMax / 10) * 10
 
+            let approvalRatingChart
+
             const approvalRatingCtx = document.getElementById('approval-rating-chart').getContext('2d')
 
-            new Chart(approvalRatingCtx, {
+            if (approvalRatingChart) approvalRatingChart.destroy()
+
+            approvalRatingChart = new Chart(approvalRatingCtx, {
                 type: "bar",
                 data: {
                     labels: sortedTopics,

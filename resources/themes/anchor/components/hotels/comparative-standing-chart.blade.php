@@ -14,9 +14,13 @@
             const marketValues = marketComparisonData.map(m => m.rating)
             const marketColors = marketLabels.map(l => l === currentHotel ? '#FF4B4B' : '#30363D')
 
+            let comparativeStandingChart;
+
             const comparativeStandingCtx = document.getElementById('comparative-standing-chart').getContext('2d')
 
-            new Chart(comparativeStandingCtx, {
+            if (comparativeStandingChart) comparativeStandingChart.destroy()
+
+            comparativeStandingChart = new Chart(comparativeStandingCtx, {
                 type: 'bar',
                 data: {
                     labels: marketLabels,

@@ -10,10 +10,12 @@
         </div>
 
         <script type="module">
-
+            let reviewDistributionChart = null;
             const reviewDistributionCtx = document.getElementById('review-distribution-chart').getContext('2d')
 
-            new Chart(reviewDistributionCtx, {
+            if (reviewDistributionChart) reviewDistributionChart.destroy()
+
+            reviewDistributionChart = new Chart(reviewDistributionCtx, {
                 type: 'doughnut', // Doughnut looks more premium
                 data: {
                     labels: Object.keys(@json($result['source_breakdown'])),
