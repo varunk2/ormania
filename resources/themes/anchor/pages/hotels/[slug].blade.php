@@ -12,6 +12,7 @@ new class extends Component {
     public $daysGoal = 45;
     public $reviewsNeeded;
     public $perDayNeeded;
+    public $platform = ["All Platforms" => "All"];
 
     public function mount($slug, GeminiService $service) {
         $this->slug = Str::headline($slug);
@@ -24,6 +25,11 @@ new class extends Component {
         if (!$value) return;
         if ($property === "targetRating" || $property === "daysGoal") {
             $this->calculateGoals();
+        }
+
+        if ($property === "platform") {
+            $platformValue = array_values($value)[0];
+            $this->result = (new GeminiService)->getHotelAnalysis($this->slug, $platformValue);
         }
     }
 
@@ -61,7 +67,15 @@ new class extends Component {
 
                     <div class="w-1/2 flex items justify-between gap-4">
                         {{-- Platform Dropdown --}}
-                        <x-hotels.platforms-dropdown />
+                        <x-hotels.platforms-dropdown :platform="$platform" />
+                        <script>
+                            document.addEventListener('livewire:init', () => {
+                                window.addEventListener('platform-selected', event => {
+                                    console.info(event)
+                                    Livewire.find(@this.__instance.id).set('platform', event.detail)
+                                })
+                            })
+                        </script>
 
                         {{-- Target Rating --}}
                         <x-hotels.integer-input

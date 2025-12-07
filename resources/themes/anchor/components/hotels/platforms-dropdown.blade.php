@@ -11,7 +11,7 @@
         id="dropdownDefaultButton"
         class="w-full dark:bg-gray-600 dark:text-gray-100"
     >
-        All Platforms
+        @php echo array_keys($platform)[0]; @endphp
         <svg
             class="w-4 h-4 ms-1.5 -me-0.5 transition-transform duration-200 transform origin-center"
             :class="{ 'rotate-180': open }"
@@ -32,25 +32,31 @@
         x-show="open"
         x-transition
         @click.outside="open = false"
-        class="rounded-lg shadow-lg w-44 mt-2 z-20
+        class="rounded-lg shadow-lg w-48 mt-2 z-20
                 absolute ease-out duration-300
-               bg-zinc-200/70 dark:bg-zinc-800
+               bg-zinc-200 dark:bg-zinc-800
                border border-zinc-200 dark:border-zinc-700
                dark:ring-zinc-800 ring-2 ring-zinc-200/50"
     >
         <ul
-            x-data="{ items: ['All Platforms', 'Booking.com', 'TripAdvisor', 'Google'] }"
+            x-data="{ items: {
+                'All Platforms': 'All',
+                'Booking.com': 'booking',
+                'TripAdvisor': 'tripadvisor',
+                'Google': 'google-maps'
+            } }"
             aria-labelledby="dropdownDefaultButton"
             class="p-1 text-sm text-body font-medium dark:text-gray-200"
         >
-            <template x-for="item in items" :key="item">
+            <template x-for="(value, title) in items" :key="value">
                 <li>
                     <a
                         href="#"
+                        @click.prevent="$dispatch('platform-selected', { [title]: value }); open = false"
                         class="border-transparent transition-colors border px-2.5 py-2 flex rounded-lg w-full h-auto text-sm hover:bg-zinc-100 dark:hover:bg-zinc-700/60 justify-start items-center hover:text-zinc-900 dark:hover:text-zinc-100 space-x-2 overflow-hidden group-hover:autoflow-auto items"
                     >
                         <span
-                            x-text="item"
+                            x-text="title"
                             class="flex-shrink-0 ease-out duration-50"
                         ></span>
                     </a>
