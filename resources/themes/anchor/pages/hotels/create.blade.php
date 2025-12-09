@@ -10,86 +10,26 @@ new class extends Component {
     public $info;
     public $analysis;
 
+    #[Validate('requried|string')]
+    public $name = '';
+
+    #[Validate('requried|string')]
+    public $city = '';
+
+    #[Validate('requried|string')]
+    public $country = '';
+
     #[Validate('required|url')]
-    public $url = '';
+    public $image = '';
 
-    // public function mount() {
-    //     $result = json_decode(Storage::get('sentimentAnalysisData/harshithram_residency.json'));
-
-    // }
-
-    public function save(GeminiService $geminiService) {
+    public function save() {
         $validated = $this->validate();
 
-        try {
-            $this->info = $this->extractBusinessInfoFromUrl($this->url);
+        $project = auth()->user()->projects()->create($validated);
 
-            if (!$this->info) {
-                session()->flash("error", "No valid business info found. Please enter a valid Google Maps business URL.");
-                return;
-            }
+        session()->flash('message', 'Project created successfully!!');
 
-            $name = $this->info['name'];
-            $location = $this->info['location'];
-
-            $this->analysis = Storage::get('sentimentAnalysisData/harshithram_residency.json');
-
-            // Fetch reviews
-            $reviews = $geminiService->getBusinessReviews($name, $location);
-
-            if(empty($reviews)) {
-                session()->flash("error", "No customer reviews found for this business. Try another one.");
-            }
-
-            // Analyze sentiment from reviews
-            $this->analysis = $geminiService->analyzeSentiment($name, $reviews);
-
-            session()->flash('message', 'Review analysis completed successfully!');
-
-            // $this->redirect(route('hotels'));
-
-        } catch (\Throwable $th) {
-            \Log::error('Hotel Review Analysis Error', [
-                'message' => $th->getMessage(),
-                'trace' => $th->getTraceAsString()
-            ]);
-
-            session()->flash("error", "An error occurred during analysis. Check logs.");
-        }
-    }
-
-    private function extractBusinessInfoFromUrl(string $url): ?array
-    {
-        try {
-            $urlParts = parse_url($url);
-            if (!isset($urlParts['host']) || !str_contains($urlParts['host'], 'google.com')) {
-                return null;
-            }
-
-            $path = $urlParts['path'] ?? '';
-
-            // Regex: capture name, latitude, longitude
-            if (preg_match('/\/maps\/place\/([^\/]+)\/@(-?\d+\.\d+),(-?\d+\.\d+)/', $path, $matches)) {
-                $name = urldecode(str_replace('+', ' ', $matches[1]));
-                $latitude = floatval($matches[2]);
-                $longitude = floatval($matches[3]);
-
-                if ($name && $latitude && $longitude) {
-                    return [
-                        'name' => $name,
-                        'address' => "Lat: {$latitude}, Lng: {$longitude}",
-                        'location' => [
-                            'latitude' => $latitude,
-                            'longitude' => $longitude,
-                        ]
-                    ];
-                }
-            }
-
-            return null;
-        } catch (\Exception $e) {
-            return null;
-        }
+        $this->redirect(route('projects'));
     }
 
 }
@@ -118,27 +58,82 @@ new class extends Component {
                         for="name"
                         class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200"
                     >
-                        Hotel Google Map URL
+                        Hotel Name
                     </label>
                     <input
-                        id="url"
+                        id="name"
                         type="text"
                         autofocus
-                        wire:model.live="url"
+                        wire:model.live="name"
                         class="block w-full mt-1 border-gray-300 rounded-md shadow-xs
                             focus:border-indigo-300 focus:ring-3 focus:ring-opacity-50"
                     >
-                    @error('url') <span class="text-xs text-red-500">{{ $message }}</span> @enderror
+                    @error('name') <span class="text-xs text-red-500">{{ $message }}</span> @enderror
+                </div>
+
+                <div class="flex items-center justify-between gap-5">
+                    <div class="w-1/2">
+                        <label
+                            for="city"
+                            class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200"
+                        >
+                            City
+                        </label>
+                        <input
+                            id="city"
+                            type="text"
+                            autofocus
+                            wire:model.live="city"
+                            class="block w-full mt-1 border-gray-300 rounded-md shadow-xs
+                                focus:border-indigo-300 focus:ring-3 focus:ring-opacity-50"
+                        >
+                        @error('city') <span class="text-xs text-red-500">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="w-1/2">
+                        <label
+                            for="country"
+                            class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200"
+                        >
+                            Country
+                        </label>
+                        <input
+                            id="country"
+                            type="text"
+                            autofocus
+                            wire:model.live="country"
+                            class="block w-full mt-1 border-gray-300 rounded-md shadow-xs
+                                focus:border-indigo-300 focus:ring-3 focus:ring-opacity-50"
+                        >
+                        @error('country') <span class="text-xs text-red-500">{{ $message }}</span> @enderror
+                    </div>
+                </div>
+
+                <div>
+                    <label
+                        for="image"
+                        class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200"
+                    >
+                        Image URL
+                    </label>
+                    <input
+                        id="image"
+                        type="url"
+                        autofocus
+                        wire:model.live="image"
+                        class="block w-full mt-1 border-gray-300 rounded-md shadow-xs
+                            focus:border-indigo-300 focus:ring-3 focus:ring-opacity-50"
+                    >
+                    @error('image') <span class="text-xs text-red-500">{{ $message }}</span> @enderror
                 </div>
 
                 <div>
                     <x-button type="submit">
-                        Analyze
+                        Save
                     </x-button>
-                </div>
-
-                <div wire:loading>
-                    <p class="text-xl">Analyzing...</p>
+                    <x-button class="ml-2 bg-red-600" type="cancel">
+                        Cancel
+                    </x-button>
                 </div>
             </form>
 
