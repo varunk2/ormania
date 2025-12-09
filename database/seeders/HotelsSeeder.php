@@ -64,6 +64,30 @@ class HotelsSeeder extends Seeder
                 "created_at" => now(),
                 "updated_at" => now()
             ],
+            4 => [
+                "id" => 5,
+                "name" => 'Avanti Kalagram',
+                "slug" => 'avanti_kalagram',
+                "city" => "Pune",
+                "country" => "India",
+                "image" => "https://static.wixstatic.com/media/78f03b_e1177b87b44d4050bb17fea763b79aac~mv2.jpg/v1/fit/w_750,h_600,q_90,enc_avif,quality_auto/78f03b_e1177b87b44d4050bb17fea763b79aac~mv2.jpg",
+                "price_per_night" => '₹4,500',
+                "user_id" => 1,
+                "created_at" => now(),
+                "updated_at" => now()
+            ],
+            5 => [
+                "id" => 6,
+                "name" => 'Forganic Farm Produce & Agro Tourism',
+                "slug" => 'forganic_farm_produce_agro_tourism',
+                "city" => "Maharashtra",
+                "country" => "India",
+                "image" => "https://lh3.googleusercontent.com/p/AF1QipNoDfl5pgaFmfEEFR-gV700v_OpmPg4MrBQvMa_=s680-w680-h510-rw",
+                "price_per_night" => '₹4,500',
+                "user_id" => 1,
+                "created_at" => now(),
+                "updated_at" => now()
+            ]
         ]);
     }
 }
