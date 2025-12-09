@@ -82,7 +82,6 @@ new class extends Component {
                         <input
                             id="city"
                             type="text"
-                            autofocus
                             wire:model.live="city"
                             class="block w-full mt-1 border-gray-300 rounded-md shadow-xs
                                 focus:border-indigo-300 focus:ring-3 focus:ring-opacity-50"
@@ -100,7 +99,6 @@ new class extends Component {
                         <input
                             id="country"
                             type="text"
-                            autofocus
                             wire:model.live="country"
                             class="block w-full mt-1 border-gray-300 rounded-md shadow-xs
                                 focus:border-indigo-300 focus:ring-3 focus:ring-opacity-50"
@@ -119,7 +117,6 @@ new class extends Component {
                     <input
                         id="image"
                         type="url"
-                        autofocus
                         wire:model.live="image"
                         class="block w-full mt-1 border-gray-300 rounded-md shadow-xs
                             focus:border-indigo-300 focus:ring-3 focus:ring-opacity-50"
