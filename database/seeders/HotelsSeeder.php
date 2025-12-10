@@ -24,7 +24,6 @@ class HotelsSeeder extends Seeder
                 "country" => "India",
                 "image" => 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2a/92/f1/7d/caption.jpg?w=1000&h=-1&s=1',
                 "price_per_night" => '₹8,500',
-                "user_id" => 1,
                 "created_at" => now(),
                 "updated_at" => now()
             ],
@@ -36,7 +35,6 @@ class HotelsSeeder extends Seeder
                 "country" => "India",
                 "image" => 'https://www.starpalacehotels.com/wp-content/uploads/2022/12/single-gallery-image-1.jpg',
                 "price_per_night" => '₹6,200',
-                "user_id" => 1,
                 "created_at" => now(),
                 "updated_at" => now()
             ],
@@ -48,7 +46,6 @@ class HotelsSeeder extends Seeder
                 "country" => "India",
                 "image" => 'https://www.rameshwaramhotels.com/data/Pics/OriginalPhoto/14691/1469151/1469151749/hotel-aalayam-rameshwaram-rameshwaram-pic-2.JPEG',
                 "price_per_night" => '₹4,500',
-                "user_id" => 1,
                 "created_at" => now(),
                 "updated_at" => now()
             ],
@@ -60,7 +57,6 @@ class HotelsSeeder extends Seeder
                 "country" => "India",
                 "image" => 'https://www.justahotels.com/wp-content/uploads/2022/12/Luxe-Cliffend-1240x562-1.png',
                 "price_per_night" => '₹4,500',
-                "user_id" => 1,
                 "created_at" => now(),
                 "updated_at" => now()
             ],
@@ -71,23 +67,43 @@ class HotelsSeeder extends Seeder
                 "city" => "Pune",
                 "country" => "India",
                 "image" => "https://static.wixstatic.com/media/78f03b_e1177b87b44d4050bb17fea763b79aac~mv2.jpg/v1/fit/w_750,h_600,q_90,enc_avif,quality_auto/78f03b_e1177b87b44d4050bb17fea763b79aac~mv2.jpg",
-                "price_per_night" => '₹4,500',
-                "user_id" => 1,
+                "price_per_night" => '₹5,253',
                 "created_at" => now(),
                 "updated_at" => now()
             ],
             5 => [
                 "id" => 6,
                 "name" => 'Forganic Farm Produce & Agro Tourism',
-                "slug" => 'forganic_farm_produce_agro_tourism',
+                "slug" => 'forganic_farm_produce_&_agro_tourism',
                 "city" => "Maharashtra",
                 "country" => "India",
                 "image" => "https://lh3.googleusercontent.com/p/AF1QipNoDfl5pgaFmfEEFR-gV700v_OpmPg4MrBQvMa_=s680-w680-h510-rw",
-                "price_per_night" => '₹4,500',
-                "user_id" => 1,
+                "price_per_night" => '₹4,904',
                 "created_at" => now(),
                 "updated_at" => now()
-            ]
+            ],
+            6 => [
+                "id" => 7,
+                "name" => 'KK Tree Retreat',
+                "slug" => 'kk_tree_retreat',
+                "city" => "Maharashtra",
+                "country" => "India",
+                "image" => "https://r1imghtlak.mmtcdn.com/d08597c88a5811ec921c0a58a9feac02.jpg",
+                "price_per_night" => '₹3,884',
+                "created_at" => now(),
+                "updated_at" => now()
+            ],
+            7 => [
+                "id" => 8,
+                "name" => 'Nicolas Farm and Resort',
+                "slug" => 'nicolas_farm_and_resort',
+                "city" => "Maharashtra",
+                "country" => "India",
+                "image" => "https://r1imghtlak.mmtcdn.com/7f9d81a6-0143-4b6c-af87-31ffff517901.jpeg",
+                "price_per_night" => '₹3,309',
+                "created_at" => now(),
+                "updated_at" => now()
+            ],
         ]);
     }
 }

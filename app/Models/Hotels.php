@@ -26,10 +26,6 @@ class Hotels extends Model
     const TRIPADVISOR = "tripadvisor";
     const GOOGLE = "google-maps";
 
-    public function user(): BelongsTo {
-        return $this->belongsTo(User::class);
-    }
-
     protected function location(): Attribute {
         return Attribute::make (
             get: fn (mixed $value, array $attributes) => $attributes['city'] . ', ' . $attributes['country']
