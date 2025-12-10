@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::table('hotels', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
             $table->dropColumn('user_id');
-            $table->decimal('price_per_night', 10, 2)->nullable()->change();
         });
     }
 
@@ -30,8 +29,6 @@ return new class extends Migration
                     ->references('id')
                     ->on('users')
                     ->nullOnDelete();
-
-            $table->string('price_per_night');
         });
     }
 };
