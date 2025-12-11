@@ -1,6 +1,6 @@
 @props(['result'])
 
-<div class="p-6 w-2/5 rounded-2xl border bg-white/60 border-gray-200 dark:bg-gray-800/50 dark:border-gray-700">
+<div class="p-6 w-full md:w-2/5 lg:w-2/5 rounded-2xl border bg-white/60 border-gray-200 dark:bg-gray-800/50 dark:border-gray-700">
     <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">
         Area Trends
     </h3>

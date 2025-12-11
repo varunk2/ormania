@@ -176,7 +176,7 @@ new class extends Component {
                         dark:from-blue-400 dark:to-teal-300">
                         Market Intelligence
                     </h2>
-                    <div class="flex items-center justify-between gap-6">
+                    <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-6">
                         <x-hotels.area-trends :result="$result" />
                         <x-hotels.comparative-standing-chart :result="$result" />
                     </div>
