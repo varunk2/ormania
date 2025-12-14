@@ -104,6 +104,17 @@ class HotelsSeeder extends Seeder
                 "created_at" => now(),
                 "updated_at" => now()
             ],
+            8 => [
+                "id" => 9,
+                "name" => "the lazy leaf",
+                "slug" => "the_lazy_leaf",
+                "city" => "Goa",
+                "country" => "India",
+                "image" => "https://r2imghtlak.mmtcdn.com/r2-mmt-htl-image/htl-imgs/202512021507185950-32733629-9a91-453c-a9f7-c6106117da46.jpg",
+                "price_per_night" => '₹3,309',
+                "created_at" => now(),
+                "updated_at" => now()
+            ],
         ]);
     }
 }
