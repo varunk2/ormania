@@ -32,9 +32,16 @@ class Hotels extends Model
         );
     }
 
+    protected function slug(): Attribute {
+        return Attribute::make (
+            get: fn (string $value) => $value,
+            set: fn (string $value) => Str::of($value)->snake()
+        );
+    }
+
     protected function pricePerNight(): Attribute {
         return Attribute::make (
-            get: fn (string $value) => $value . ' / night'
+            get: fn (?string $value) => ($value > 0 ? $value : '₹ 0') . ' / night'
         );
     }
 }

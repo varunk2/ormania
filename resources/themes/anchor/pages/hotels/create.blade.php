@@ -3,6 +3,8 @@ use function Laravel\Folio\{middleware, name};
 use Livewire\Attributes\Validate;
 use Livewire\Volt\Component;
 use App\Services\GeminiService;
+use App\Models\Hotels;
+use Filament\Notifications\Notification;
 middleware('auth');
 name('hotels.create');
 
@@ -10,26 +12,30 @@ new class extends Component {
     public $info;
     public $analysis;
 
-    #[Validate('requried|string')]
+    #[Validate('required|string')]
     public $name = '';
 
-    #[Validate('requried|string')]
+    #[Validate('required|string')]
     public $city = '';
 
-    #[Validate('requried|string')]
-    public $country = '';
+    #[Validate('required|string')]
+    public $country = 'India';
 
     #[Validate('required|url')]
     public $image = '';
 
     public function save() {
         $validated = $this->validate();
+        $validated['slug'] = $this->name;
 
-        $project = auth()->user()->projects()->create($validated);
+        $project = Hotels::create($validated);
 
-        session()->flash('message', 'Project created successfully!!');
+        Notification::make()
+                    ->title("Hotel created successfully!!")
+                    ->success()
+                    ->send();
 
-        $this->redirect(route('projects'));
+        $this->reset();
     }
 
 }
@@ -133,26 +139,6 @@ new class extends Component {
                     </x-button>
                 </div>
             </form>
-
-            @if($analysis)
-                <pre class="overflow-x-auto font-mono text-xs text-gray-600 border rounded-lg bg-gray-50 dark:bg-zinc-700/50 dark:text-gray-100 dark:border-gray-800 border-gray-200/80 p-5">
-                    {{ json_encode($analysis) }}
-                </pre>
-            @endif
-
-
-            @if($info)
-                <div class="mt-2 p-2 bg-green-100 rounded">
-                    <strong>Name:</strong> {{ str(Str::slug($info['name'], '_'))->append('.json')->prepend('sentimentAnalysisData/') }} <br>
-                    <strong>Address:</strong> {{ $info['address'] }}
-                </div>
-            @endif
-
-            @if (session('error'))
-                <div class="bg-red-500 text-white px-4 py-2 rounded mb-4">
-                    {{ session('error') }}
-                </div>
-            @endif
         </x-app.container>
     @endvolt
 </x-layouts.app>
