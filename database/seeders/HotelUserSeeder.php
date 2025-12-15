@@ -51,6 +51,13 @@ class HotelUserSeeder extends Seeder
                 "created_at" => now(),
                 "updated_at" => now()
             ],
+            5 => [
+                "id" => 7,
+                "user_id" => 6,
+                "hotel_id" => 9,
+                "created_at" => now(),
+                "updated_at" => now()
+            ],
         ]);
     }
 }
