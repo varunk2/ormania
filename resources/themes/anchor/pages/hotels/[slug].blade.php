@@ -21,16 +21,23 @@ new class extends Component {
         $this->calculateGoals();
     }
 
-    public function updated($property, $value) {
-        if (!$value) return;
-        if ($property === "targetRating" || $property === "daysGoal") {
-            $this->calculateGoals();
-        }
+    public function updatedTargetRating() {
+        $this->calculateGoals();
+    }
 
-        if ($property === "platform") {
-            $platformValue = array_values($value)[0];
-            $this->result = (new GeminiService)->getHotelAnalysis($this->slug, $platformValue);
-        }
+    public function updatedDaysGoal() {
+        $this->calculateGoals();
+    }
+
+    public function updatedPlatform($value) {
+        if (! is_array($value)) return;
+
+        $platformValue = array_values($value)[0];
+        $this->result = (new GeminiService)->getHotelAnalysis($this->slug, $platformValue);
+        $this->dispatch(
+            'resultUpdated',
+            result: $this->result
+        );
     }
 
     public function calculateGoals() {
@@ -68,14 +75,6 @@ new class extends Component {
                     <div class="w-1/2 flex items justify-between gap-4">
                         {{-- Platform Dropdown --}}
                         <x-hotels.platforms-dropdown :platform="$platform" />
-                        <script>
-                            document.addEventListener('livewire:init', () => {
-                                window.addEventListener('platform-selected', event => {
-                                    console.info(event)
-                                    Livewire.find(@this.__instance.id).set('platform', event.detail)
-                                })
-                            })
-                        </script>
 
                         {{-- Target Rating --}}
                         <x-hotels.integer-input
