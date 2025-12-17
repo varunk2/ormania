@@ -39,12 +39,15 @@
                dark:ring-zinc-800 ring-2 ring-zinc-200/50"
     >
         <ul
-            x-data="{ items: {
-                'All Platforms': 'All',
-                'Booking.com': 'booking',
-                'TripAdvisor': 'tripadvisor',
-                'Google': 'google-maps'
-            } }"
+            x-data="{
+                platform: @entangle('platform').live,
+                items: {
+                    'All Platforms': 'All',
+                    'Booking.com': 'booking',
+                    'TripAdvisor': 'tripadvisor',
+                    'Google': 'google-maps'
+                }
+            }"
             aria-labelledby="dropdownDefaultButton"
             class="p-1 text-sm text-body font-medium dark:text-gray-200"
         >
@@ -52,9 +55,10 @@
                 <li>
                     <a
                         href="#"
-                        @click.prevent="$dispatch('platform-selected', { [title]: value }); open = false"
+                        @click.prevent="platform = { [title]: value }; open = false"
                         class="border-transparent transition-colors border px-2.5 py-2 flex rounded-lg w-full h-auto text-sm hover:bg-zinc-100 dark:hover:bg-zinc-700/60 justify-start items-center hover:text-zinc-900 dark:hover:text-zinc-100 space-x-2 overflow-hidden group-hover:autoflow-auto items"
                     >
+
                         <span
                             x-text="title"
                             class="flex-shrink-0 ease-out duration-50"
