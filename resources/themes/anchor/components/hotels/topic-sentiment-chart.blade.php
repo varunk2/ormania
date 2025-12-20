@@ -11,43 +11,50 @@
 
         <script type="module">
             document.addEventListener('livewire:init', () => {
-                let topicAnalysis = @json($result['topic_analysis']);
-                let topics = Object.keys(topicAnalysis)
-                let posData = Object.values(topicAnalysis).map(t => t.Positive || 0)
-                let negData = Object.values(topicAnalysis).map(t => t.Negative || 0)
-                let neuData = Object.values(topicAnalysis).map(t => t.Neutral || 0)
 
-                let totalData = topics.map((t, i) => posData[i] + negData[i] + neuData[i])
-                let posPct = posData.map((v, i) => totalData[i] ? (v / totalData[i] * 100) : 0)
-                let negPct = negData.map((v, i) => totalData[i] ? (v / totalData[i] * 100) : 0)
-                let neuPct = neuData.map((v, i) => totalData[i] ? (v / totalData[i] * 100) : 0)
+                const DATASETS_META = [
+                    { key: 'Positive', label: 'Positive', color: '#238636' },
+                    { key: 'Negative', label: 'Negative', color: '#DA3633' },
+                    { key: 'Neutral', label: 'Neutral', color: '#8957E5' },
+                ]
+
+                const processTopicAnalysis = (topicAnalysis) => {
+                    const topics = Object.keys(topicAnalysis)
+
+                    const raw = topics.map(topic => {
+                        const t = topicAnalysis[topic]
+                        return {
+                            Positive: t.Positive || 0,
+                            Negative: t.Negative || 0,
+                            Neutral: t.Neutral || 0,
+                        }
+                    })
+
+                    const totals = raw.map(r => r.Positive + r.Negative + r.Neutral)
+
+                    const datasets = DATASETS_META.map(meta => ({
+                        label: meta.label,
+                        data: raw.map((r, i) =>
+                            totals[i] ? (r[meta.key] / totals[i]) * 100 : 0
+                        ),
+                        backgroundColor: meta.color,
+                        borderRadius: 4
+                    }))
+
+                    return { topics, datasets }
+                }
 
                 const topicSentimentCtx = document.getElementById('topic-sentiment-chart').getContext('2d')
+
+                let { topics, datasets } = processTopicAnalysis(
+                    @json($result['topic_analysis'])
+                )
 
                 let topicSentimentChart = new Chart(topicSentimentCtx, {
                     type: 'bar',
                     data: {
                         labels: topics,
-                        datasets: [
-                            {
-                                label: "Positive",
-                                data: posPct,
-                                backgroundColor: "#238636",
-                                borderRadius: 4
-                            },
-                            {
-                                label: "Negative",
-                                data: negPct,
-                                backgroundColor: "#DA3633",
-                                borderRadius: 4
-                            },
-                            {
-                                label: "Neutral",
-                                data: neuPct,
-                                backgroundColor: "#8957E5",
-                                borderRadius: 4
-                            }
-                        ]
+                        datasets
                     },
                     options: {
                         responsive: true,
@@ -70,37 +77,12 @@
                 })
 
                 Livewire.on('resultUpdated', (result) => {
-                    topicAnalysis = result[0]['topic_analysis']
-                    topics = Object.keys(topicAnalysis)
-                    posData = Object.values(topicAnalysis).map(t => t.Positive || 0)
-                    negData = Object.values(topicAnalysis).map(t => t.Negative || 0)
-                    neuData = Object.values(topicAnalysis).map(t => t.Neutral || 0)
+                    const processed = processTopicAnalysis(result[0].topic_analysis)
 
-                    totalData = topics.map((t, i) => posData[i] + negData[i] + neuData[i])
-                    posPct = posData.map((v, i) => totalData[i] ? (v / totalData[i] * 100) : 0)
-                    negPct = negData.map((v, i) => totalData[i] ? (v / totalData[i] * 100) : 0)
-                    neuPct = neuData.map((v, i) => totalData[i] ? (v / totalData[i] * 100) : 0)
-
-                    topicSentimentChart.data.datasets = [
-                        {
-                            label: "Positive",
-                            data: posPct,
-                            backgroundColor: "#238636",
-                            borderRadius: 4
-                        },
-                        {
-                            label: "Negative",
-                            data: negPct,
-                            backgroundColor: "#DA3633",
-                            borderRadius: 4
-                        },
-                        {
-                            label: "Neutral",
-                            data: neuPct,
-                            backgroundColor: "#8957E5",
-                            borderRadius: 4
-                        }
-                    ]
+                    topicSentimentChart.data.labels = processed.topics
+                    topicSentimentChart.data.datasets.forEach((ds, i) => {
+                        ds.data = processed.datasets[i].data
+                    })
 
                     topicSentimentChart.update()
                 })
