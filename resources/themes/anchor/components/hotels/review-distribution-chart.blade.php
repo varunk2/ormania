@@ -48,8 +48,8 @@
                 })
 
                 Livewire.on('resultUpdated', (result) => {
-                    reviewDistributionChart.data.labels = Object.keys(result['result']['source_breakdown'])
-                    reviewDistributionChart.data.datasets[0].data = Object.values(result['result']['source_breakdown'])
+                    reviewDistributionChart.data.labels = Object.keys(result[0]['source_breakdown'])
+                    reviewDistributionChart.data.datasets[0].data = Object.values(result[0]['source_breakdown'])
                     reviewDistributionChart.update()
                 })
 

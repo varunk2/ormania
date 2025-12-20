@@ -36,7 +36,7 @@ new class extends Component {
         $this->result = (new GeminiService)->getHotelAnalysis($this->slug, $platformValue);
         $this->dispatch(
             'resultUpdated',
-            result: $this->result
+            $this->result
         );
     }
 
